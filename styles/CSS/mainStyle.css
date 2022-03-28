@@ -1,0 +1,56 @@
+body {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+body #desktop {
+  position: fixed;
+  height: 95%;
+  width: 100%;
+  background-color: aquamarine;
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  /* Resize the background image to cover the entire container */
+}
+body #desktop #osMenuPannelContainer {
+  width: 50%;
+  height: 60%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: aqua;
+}
+body #navbar {
+  position: fixed;
+  bottom: 0;
+  height: 5%;
+  width: 100%;
+  background-color: #2a2e36;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+body #navbar .appContainer {
+  height: 100%;
+  width: 50px;
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: 70%;
+  /* Resize the background image to cover the entire container */
+}
+body #navbar .appDesign {
+  background-color: #666666;
+  border-top: 4px solid grey;
+  margin-right: 5px;
+}
+body #navbar #osMenuDesign {
+  margin-right: 10px;
+}

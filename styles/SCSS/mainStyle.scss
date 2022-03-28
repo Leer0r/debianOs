@@ -1,0 +1,59 @@
+body{
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    #desktop {
+        position: fixed;
+        height: 95%;
+        width: 100%;
+        background-color: aquamarine;
+
+        background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+        background-size: cover; /* Resize the background image to cover the entire container */
+
+        #osMenuPannelContainer{
+            width: 50%;
+            height: 60%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: aqua;
+        }
+    }
+
+    #navbar {
+        position: fixed;
+        bottom: 0;
+        height: 5%;
+        width: 100%;
+        background-color: rgb(42, 46, 54);
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+
+        .appContainer{
+            height: 100%;
+            width: 50px;
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: 70%; /* Resize the background image to cover the entire container */
+        }
+
+        .appDesign {
+            background-color: rgb(102, 102, 102);
+            border-top: 4px solid grey;
+            margin-right: 5px;
+        }
+
+        #osMenuDesign{
+            margin-right: 10px;
+        }
+
+        
+    }
+}
