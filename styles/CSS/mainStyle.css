@@ -10,7 +10,6 @@ body #desktop {
   position: fixed;
   height: 95%;
   width: 100%;
-  background-color: aquamarine;
   background-position: center;
   /* Center the image */
   background-repeat: no-repeat;
@@ -18,13 +17,118 @@ body #desktop {
   background-size: cover;
   /* Resize the background image to cover the entire container */
 }
+body #desktop #windowsContainer {
+  width: 100%;
+  height: 100%;
+}
+body #desktop #windowsContainer .window {
+  position: absolute;
+  width: 700px;
+  height: 400px;
+  margin: 0px;
+  border-radius: 13%;
+  z-index: 0;
+}
+body #desktop #windowsContainer .window .topBar {
+  width: 100%;
+  height: 5%;
+  background-color: cadetblue;
+  display: flex;
+  flex-flow: row nowrap;
+}
+body #desktop #windowsContainer .window .topBar:hover {
+  cursor: move;
+}
+body #desktop #windowsContainer .window .topBar .appLogo {
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: contain;
+  /* Resize the background image to cover the entire container */
+  border-radius: 50%;
+  height: 100%;
+  width: 20px;
+}
+body #desktop #windowsContainer .window .topBar .appName {
+  padding-left: 10px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+body #desktop #windowsContainer .window .core {
+  width: 100%;
+  height: 95%;
+  background-color: antiquewhite;
+}
 body #desktop #osMenuPannelContainer {
   width: 50%;
-  height: 60%;
-  position: fixed;
+  height: 0%;
+  position: absolute;
   bottom: 0;
   left: 0;
+  background-color: #25262F;
+  border-bottom: solid 0px grey;
+  border-radius: 0% 1% 0% 0%;
+  transition: height 0.5s;
+  z-index: 21;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+body #desktop #osMenuPannelContainer .userAccount {
+  grid-area: 1/1/2/3;
+  display: flex;
+  flex-flow: row nowrap;
+}
+body #desktop #osMenuPannelContainer .userAccount .userLogoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body #desktop #osMenuPannelContainer .userAccount .userLogoContainer .userLogo {
+  background-image: url("../../ressources/os/osLogo.png");
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: contain;
+  /* Resize the background image to cover the entire container */
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
   background-color: aqua;
+  margin-right: 10px;
+}
+body #desktop #osMenuPannelContainer .userAccount .userName {
+  text-align: center;
+  vertical-align: middle;
+  color: #e2e4eb;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+body #desktop #osMenuPannelContainer .searchBar {
+  grid-area: 1/3/2/7;
+}
+body #desktop #osMenuPannelContainer .leftSubPannel {
+  grid-area: 2/1/8/3;
+}
+body #desktop #osMenuPannelContainer .rightSubPannel {
+  grid-area: 2/3/8/7;
+}
+body #desktop #osMenuPannelContainer .bottomSubPannel {
+  grid-area: 8/1/9/7;
 }
 body #navbar {
   position: fixed;
@@ -47,10 +151,19 @@ body #navbar .appContainer {
   /* Resize the background image to cover the entire container */
 }
 body #navbar .appDesign {
-  background-color: #666666;
+  background-color: #474750;
   border-top: 4px solid grey;
   margin-right: 5px;
+  transition: background-color 0.75s;
+}
+body #navbar .appDesign:hover {
+  background-color: #575f66;
 }
 body #navbar #osMenuDesign {
+  border-right: solid 3px #4e7070;
   margin-right: 10px;
+  transition: background-color 0.75s;
+}
+body #navbar #osMenuDesign:hover {
+  background-color: #464d53;
 }
