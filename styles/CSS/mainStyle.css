@@ -66,6 +66,13 @@ body #desktop #windowsContainer .window .topBar .appName {
   user-select: none;
   /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
+body #desktop #windowsContainer .window .topBar .navButton {
+  position: absolute;
+  right: 0;
+  height: 5%;
+  width: 100px;
+  background-color: #25262F;
+}
 body #desktop #windowsContainer .window .core {
   width: 100%;
   height: 95%;

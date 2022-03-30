@@ -9,6 +9,11 @@ interface osMenu{
     logo:string
 }
 
+interface applicationHandle{
+    window:HTMLDivElement,
+    navbarIcon:HTMLDivElement
+}
+
 class DebianOS
 {
     navBar: HTMLDivElement;
@@ -19,7 +24,7 @@ class DebianOS
     isDown:boolean;
     currentFocusedWindow:HTMLDivElement;
     offset: number[];
-    desktopManager:[HTMLDivElement,HTMLDivElement]
+    desktopManager:Array<applicationHandle>
 
     constructor(navbarHook:string="#navbar", 
                 desktopHook:string="#desktop",
@@ -74,6 +79,7 @@ class DebianOS
 
     setWindowsContainer(windowsContainerHook:string){
         this.windowsContainer = document.querySelector(windowsContainerHook);
+        this.desktopManager = [];
         const testWindow:application = {
             description:"",
             logo: "url(../../ressources/app/Discord-Logo.png)",
@@ -122,14 +128,23 @@ class DebianOS
     }
 
     createApp(application:application){
-        this.createAppWindow(application);
-        this.addAppNavBar(application);
-        console.log()
+        let appNumber = this.desktopManager.length ;
+        const appAdd:applicationHandle = {
+            window: this.createAppWindow(application, appNumber),
+            navbarIcon: this.addAppNavBar(application, appNumber)
+        }
+        this.desktopManager.push(appAdd)
     }
 
-    createAppWindow(application:application){
+    closeApp(appNumber:number){
+        this.desktopManager[appNumber].window.remove()
+        this.desktopManager[appNumber].navbarIcon.remove()
+    }
+
+    createAppWindow(application:application, appNumber:number){
         const window = document.createElement("div");
         window.classList.add("window")
+        window.setAttribute("window_number",`${appNumber}`);
 
         const topBar = document.createElement("div");
         topBar.classList.add("topBar")
@@ -158,6 +173,8 @@ class DebianOS
         
         this.windowsContainer.appendChild(window)
 
+        return window;
+
 
     }
 
@@ -175,6 +192,12 @@ class DebianOS
             this.mouseDownEvent(ev)
         },true
         )
+
+        const navButton = topBar.children[2]
+        const windowNumber = parseInt(window.getAttribute("window_number"));
+        navButton.addEventListener("click",() => {
+            this.closeApp(windowNumber)
+        })
     }
     mouseDownEvent(event:MouseEvent){
         this.isDown = true;
@@ -195,12 +218,14 @@ class DebianOS
         this.addOsMenu(this.osMenu);
     }
 
-    addAppNavBar(app:application) {
+    addAppNavBar(app:application,appNumber:number) {
         let osAppDiv:HTMLDivElement = document.createElement("div");
         osAppDiv.classList.add("appContainer")
         osAppDiv.classList.add("appDesign")
+        osAppDiv.setAttribute("windowNumber",`${appNumber}`)
         osAppDiv.style.backgroundImage = app.logo;
         this.navBar.appendChild(osAppDiv);
+        return osAppDiv
     }
 
     addOsMenu(osMenuInfo:osMenu){
@@ -223,16 +248,6 @@ class DebianOS
             this.osMenuPannel.style.borderBottom = "none"
         }
     
-    }
-
-    addTestApp(){
-        let appDiv:application = {
-            description:"discord for test app",
-            logo: "url(../../ressources/app/Discord-Logo.png)",
-            name: "testApp"
-        }
-
-        this.addAppNavBar(appDiv);
     }
 }
 

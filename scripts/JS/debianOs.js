@@ -44,6 +44,7 @@ var DebianOS = /** @class */ (function () {
     };
     DebianOS.prototype.setWindowsContainer = function (windowsContainerHook) {
         this.windowsContainer = document.querySelector(windowsContainerHook);
+        this.desktopManager = [];
         var testWindow = {
             description: "",
             logo: "url(../../ressources/app/Discord-Logo.png)",
@@ -78,13 +79,21 @@ var DebianOS = /** @class */ (function () {
     DebianOS.prototype.setOsMenuPannelContentbottomSubPannel = function (target) {
     };
     DebianOS.prototype.createApp = function (application) {
-        this.createAppWindow(application);
-        this.addAppNavBar(application);
-        console.log();
+        var appNumber = this.desktopManager.length;
+        var appAdd = {
+            window: this.createAppWindow(application, appNumber),
+            navbarIcon: this.addAppNavBar(application, appNumber)
+        };
+        this.desktopManager.push(appAdd);
     };
-    DebianOS.prototype.createAppWindow = function (application) {
+    DebianOS.prototype.closeApp = function (appNumber) {
+        this.desktopManager[appNumber].window.remove();
+        this.desktopManager[appNumber].navbarIcon.remove();
+    };
+    DebianOS.prototype.createAppWindow = function (application, appNumber) {
         var window = document.createElement("div");
         window.classList.add("window");
+        window.setAttribute("window_number", "" + appNumber);
         var topBar = document.createElement("div");
         topBar.classList.add("topBar");
         var appLogo = document.createElement("div");
@@ -105,6 +114,7 @@ var DebianOS = /** @class */ (function () {
         console.log(window);
         this.setupWindowEventListener(window);
         this.windowsContainer.appendChild(window);
+        return window;
     };
     DebianOS.prototype.setupWindowEventListener = function (window) {
         var _this = this;
@@ -120,6 +130,11 @@ var DebianOS = /** @class */ (function () {
             _this.currentFocusedWindow.style.zIndex = "20";
             _this.mouseDownEvent(ev);
         }, true);
+        var navButton = topBar.children[2];
+        var windowNumber = parseInt(window.getAttribute("window_number"));
+        navButton.addEventListener("click", function () {
+            _this.closeApp(windowNumber);
+        });
     };
     DebianOS.prototype.mouseDownEvent = function (event) {
         this.isDown = true;
@@ -135,12 +150,14 @@ var DebianOS = /** @class */ (function () {
         };
         this.addOsMenu(this.osMenu);
     };
-    DebianOS.prototype.addAppNavBar = function (app) {
+    DebianOS.prototype.addAppNavBar = function (app, appNumber) {
         var osAppDiv = document.createElement("div");
         osAppDiv.classList.add("appContainer");
         osAppDiv.classList.add("appDesign");
+        osAppDiv.setAttribute("windowNumber", "" + appNumber);
         osAppDiv.style.backgroundImage = app.logo;
         this.navBar.appendChild(osAppDiv);
+        return osAppDiv;
     };
     DebianOS.prototype.addOsMenu = function (osMenuInfo) {
         var _this = this;
@@ -162,14 +179,6 @@ var DebianOS = /** @class */ (function () {
             this.osMenuPannel.style.height = "0%";
             this.osMenuPannel.style.borderBottom = "none";
         }
-    };
-    DebianOS.prototype.addTestApp = function () {
-        var appDiv = {
-            description: "discord for test app",
-            logo: "url(../../ressources/app/Discord-Logo.png)",
-            name: "testApp"
-        };
-        this.addAppNavBar(appDiv);
     };
     return DebianOS;
 }());

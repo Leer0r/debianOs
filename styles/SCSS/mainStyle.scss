@@ -1,71 +1,82 @@
-body{
+body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
     border: none;
     padding: 0;
     margin: 0;
-
     #desktop {
         position: fixed;
         height: 95%;
         width: 100%;
-
-        background-position: center; /* Center the image */
-        background-repeat: no-repeat; /* Do not repeat the image */
-        background-size: cover; /* Resize the background image to cover the entire container */
-
-        #windowsContainer{
+        background-position: center;
+        /* Center the image */
+        background-repeat: no-repeat;
+        /* Do not repeat the image */
+        background-size: cover;
+        /* Resize the background image to cover the entire container */
+        #windowsContainer {
             width: 100%;
             height: 100%;
-            .window{
+            .window {
                 position: absolute;
                 width: 700px;
                 height: 400px;
                 margin: 0px;
                 border-radius: 13%;
                 z-index: 0;
-                .topBar{
+                .topBar {
                     width: 100%;
                     height: 5%;
                     background-color: cadetblue;
                     display: flex;
                     flex-flow: row nowrap;
-
-                    &:hover{
+                    &:hover {
                         cursor: move;
                     }
-
-                    .appLogo{
-                        background-position: center; /* Center the image */
-                        background-repeat: no-repeat; /* Do not repeat the image */
-                        background-size: contain; /* Resize the background image to cover the entire container */
+                    .appLogo {
+                        background-position: center;
+                        /* Center the image */
+                        background-repeat: no-repeat;
+                        /* Do not repeat the image */
+                        background-size: contain;
+                        /* Resize the background image to cover the entire container */
                         border-radius: 50%;
                         height: 100%;
                         width: 20px;
                     }
-
-                    .appName{
+                    .appName {
                         padding-left: 10px;
                         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-                        -webkit-touch-callout: none; /* iOS Safari */
-                        -webkit-user-select: none; /* Safari */
-                        -khtml-user-select: none; /* Konqueror HTML */
-                        -moz-user-select: none; /* Old versions of Firefox */
-                        -ms-user-select: none; /* Internet Explorer/Edge */
-                        user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+                        -webkit-touch-callout: none;
+                        /* iOS Safari */
+                        -webkit-user-select: none;
+                        /* Safari */
+                        -khtml-user-select: none;
+                        /* Konqueror HTML */
+                        -moz-user-select: none;
+                        /* Old versions of Firefox */
+                        -ms-user-select: none;
+                        /* Internet Explorer/Edge */
+                        user-select: none;
+                        /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+                    }
+                    .navButton {
+                        position: absolute;
+                        right: 0;
+                        height: 5%;
+                        width: 100px;
+                        background-color: #25262F;
                     }
                 }
-
-                .core{
+                .core {
                     width: 100%;
                     height: 95%;
                     background-color: antiquewhite;
                 }
             }
         }
-
-        #osMenuPannelContainer{
+        #osMenuPannelContainer {
             width: 50%;
             height: 0%;
             position: absolute;
@@ -74,32 +85,29 @@ body{
             background-color: #25262F;
             border-bottom: solid 0px grey;
             border-radius: 0% 1% 0% 0%;
-            transition:height .5s;
+            transition: height .5s;
             z-index: 21;
-
             display: grid;
             grid-template-columns: repeat(6, 1fr);
             grid-template-rows: repeat(8, 1fr);
             grid-column-gap: 0px;
             grid-row-gap: 0px;
-
-            .userAccount { 
-                grid-area: 1 / 1 / 2 / 3; 
-                
+            .userAccount {
+                grid-area: 1 / 1 / 2 / 3;
                 display: flex;
                 flex-flow: row nowrap;
-
-                .userLogoContainer{
-
+                .userLogoContainer {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-
-                    .userLogo{
+                    .userLogo {
                         background-image: url("../../ressources/os/osLogo.png");
-                        background-position: center; /* Center the image */
-                        background-repeat: no-repeat; /* Do not repeat the image */
-                        background-size: contain; /* Resize the background image to cover the entire container */
+                        background-position: center;
+                        /* Center the image */
+                        background-repeat: no-repeat;
+                        /* Do not repeat the image */
+                        background-size: contain;
+                        /* Resize the background image to cover the entire container */
                         border-radius: 50%;
                         height: 40px;
                         width: 40px;
@@ -107,21 +115,27 @@ body{
                         margin-right: 10px;
                     }
                 }
-
-                .userName{
+                .userName {
                     text-align: center;
                     vertical-align: middle;
                     color: #e2e4eb;
                     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 }
             }
-            .searchBar { grid-area: 1 / 3 / 2 / 7; }
-            .leftSubPannel { grid-area: 2 / 1 / 8 / 3; }
-            .rightSubPannel { grid-area: 2 / 3 / 8 / 7; }
-            .bottomSubPannel { grid-area: 8 / 1 / 9 / 7; }
+            .searchBar {
+                grid-area: 1 / 3 / 2 / 7;
+            }
+            .leftSubPannel {
+                grid-area: 2 / 1 / 8 / 3;
+            }
+            .rightSubPannel {
+                grid-area: 2 / 3 / 8 / 7;
+            }
+            .bottomSubPannel {
+                grid-area: 8 / 1 / 9 / 7;
+            }
         }
     }
-
     #navbar {
         position: fixed;
         bottom: 0;
@@ -131,37 +145,32 @@ body{
         display: flex;
         flex-flow: row nowrap;
         justify-content: flex-start;
-
-        .appContainer{
+        .appContainer {
             height: 100%;
             width: 50px;
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Do not repeat the image */
-            background-size: 70%; /* Resize the background image to cover the entire container */
+            background-position: center;
+            /* Center the image */
+            background-repeat: no-repeat;
+            /* Do not repeat the image */
+            background-size: 70%;
+            /* Resize the background image to cover the entire container */
         }
-
         .appDesign {
             background-color: #474750;
             border-top: 4px solid grey;
             margin-right: 5px;
             transition: background-color .75s;
-
-            &:hover{
+            &:hover {
                 background-color: rgb(87, 95, 102);
             }
         }
-
-        #osMenuDesign{
+        #osMenuDesign {
             border-right: solid 3px rgb(78, 112, 112);
             margin-right: 10px;
             transition: background-color .75s;
-
-            &:hover{
+            &:hover {
                 background-color: rgb(70, 77, 83);
             }
         }
-        
-
-        
     }
 }
