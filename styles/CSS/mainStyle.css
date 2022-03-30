@@ -71,7 +71,20 @@ body #desktop #windowsContainer .window .topBar .navButton {
   right: 0;
   height: 5%;
   width: 100px;
-  background-color: #25262F;
+  display: flex;
+  flex-flow: row nowrap;
+}
+body #desktop #windowsContainer .window .topBar .navButton .reduceButton {
+  flex: 1;
+  background-color: brown;
+}
+body #desktop #windowsContainer .window .topBar .navButton .fullscreenButton {
+  flex: 1;
+  background-color: darkgreen;
+}
+body #desktop #windowsContainer .window .topBar .navButton .closeButton {
+  flex: 1;
+  background-color: crimson;
 }
 body #desktop #windowsContainer .window .core {
   width: 100%;

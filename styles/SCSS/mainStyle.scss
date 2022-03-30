@@ -66,7 +66,20 @@ body {
                         right: 0;
                         height: 5%;
                         width: 100px;
-                        background-color: #25262F;
+                        display: flex;
+                        flex-flow: row nowrap;
+                        .reduceButton {
+                            flex: 1;
+                            background-color: brown;
+                        }
+                        .fullscreenButton {
+                            flex: 1;
+                            background-color: darkgreen;
+                        }
+                        .closeButton {
+                            flex: 1;
+                            background-color: crimson;
+                        }
                     }
                 }
                 .core {

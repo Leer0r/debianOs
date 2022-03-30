@@ -155,13 +155,26 @@ class DebianOS
         topBar.appendChild(appLogo)
 
         const appName = document.createElement("div");
-        appName.classList.add("appName")
+        appName.classList.add("appName");
         appName.innerHTML = application.name
         topBar.appendChild(appName)
 
         const navButton = document.createElement("div");
-        navButton.classList.add("navButton")
-        topBar.appendChild(navButton)
+        navButton.classList.add("navButton");
+
+        const reduceButton = document.createElement("div");
+        reduceButton.classList.add("reduceButton");
+        navButton.appendChild(reduceButton)
+
+        const fullscreenButton = document.createElement("div");
+        fullscreenButton.classList.add("fullscreenButton");
+        navButton.appendChild(fullscreenButton)
+
+        const closeButton = document.createElement("div");
+        closeButton.classList.add("closeButton");
+        navButton.appendChild(closeButton)
+
+        topBar.appendChild(navButton);
 
         window.appendChild(topBar);
         

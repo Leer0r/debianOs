@@ -106,6 +106,15 @@ var DebianOS = /** @class */ (function () {
         topBar.appendChild(appName);
         var navButton = document.createElement("div");
         navButton.classList.add("navButton");
+        var reduceButton = document.createElement("div");
+        reduceButton.classList.add("reduceButton");
+        navButton.appendChild(reduceButton);
+        var fullscreenButton = document.createElement("div");
+        fullscreenButton.classList.add("fullscreenButton");
+        navButton.appendChild(fullscreenButton);
+        var closeButton = document.createElement("div");
+        closeButton.classList.add("closeButton");
+        navButton.appendChild(closeButton);
         topBar.appendChild(navButton);
         window.appendChild(topBar);
         var core = document.createElement("div");
