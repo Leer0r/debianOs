@@ -48,7 +48,7 @@ var DebianOS = /** @class */ (function () {
         var testWindow = {
             description: "",
             logo: "url(../../ressources/app/Discord-Logo.png)",
-            name: "discord"
+            name: "Discord"
         };
         this.createApp(testWindow);
         this.createApp(testWindow);
@@ -108,12 +108,15 @@ var DebianOS = /** @class */ (function () {
         navButton.classList.add("navButton");
         var reduceButton = document.createElement("div");
         reduceButton.classList.add("reduceButton");
+        reduceButton.innerHTML = "-";
         navButton.appendChild(reduceButton);
         var fullscreenButton = document.createElement("div");
         fullscreenButton.classList.add("fullscreenButton");
+        fullscreenButton.innerHTML = "^";
         navButton.appendChild(fullscreenButton);
         var closeButton = document.createElement("div");
         closeButton.classList.add("closeButton");
+        closeButton.innerHTML = "x";
         navButton.appendChild(closeButton);
         topBar.appendChild(navButton);
         window.appendChild(topBar);
@@ -141,7 +144,7 @@ var DebianOS = /** @class */ (function () {
         }, true);
         var navButton = topBar.children[2];
         var windowNumber = parseInt(window.getAttribute("window_number"));
-        navButton.addEventListener("click", function () {
+        navButton.children[2].addEventListener("click", function () {
             _this.closeApp(windowNumber);
         });
     };

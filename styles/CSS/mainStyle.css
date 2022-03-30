@@ -26,13 +26,13 @@ body #desktop #windowsContainer .window {
   width: 700px;
   height: 400px;
   margin: 0px;
-  border-radius: 13%;
+  border-radius: 103%;
   z-index: 0;
 }
 body #desktop #windowsContainer .window .topBar {
   width: 100%;
   height: 5%;
-  background-color: cadetblue;
+  background-color: #23252e;
   display: flex;
   flex-flow: row nowrap;
 }
@@ -52,7 +52,8 @@ body #desktop #windowsContainer .window .topBar .appLogo {
 }
 body #desktop #windowsContainer .window .topBar .appName {
   padding-left: 10px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #e2e4eb;
   -webkit-touch-callout: none;
   /* iOS Safari */
   -webkit-user-select: none;
@@ -74,22 +75,31 @@ body #desktop #windowsContainer .window .topBar .navButton {
   display: flex;
   flex-flow: row nowrap;
 }
+body #desktop #windowsContainer .window .topBar .navButton > * {
+  text-align: center;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  color: aliceblue;
+  transition: background-color 1s;
+}
+body #desktop #windowsContainer .window .topBar .navButton > *:hover {
+  background-color: #474750;
+}
 body #desktop #windowsContainer .window .topBar .navButton .reduceButton {
   flex: 1;
-  background-color: brown;
 }
 body #desktop #windowsContainer .window .topBar .navButton .fullscreenButton {
   flex: 1;
-  background-color: darkgreen;
 }
 body #desktop #windowsContainer .window .topBar .navButton .closeButton {
   flex: 1;
-  background-color: crimson;
+  display: inline-block;
+  content: "x";
+  /* This will render the 'X' */
 }
 body #desktop #windowsContainer .window .core {
   width: 100%;
   height: 95%;
-  background-color: antiquewhite;
+  background-color: #232a35;
 }
 body #desktop #osMenuPannelContainer {
   width: 50%;

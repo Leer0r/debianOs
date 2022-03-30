@@ -83,7 +83,7 @@ class DebianOS
         const testWindow:application = {
             description:"",
             logo: "url(../../ressources/app/Discord-Logo.png)",
-            name: "discord"
+            name: "Discord"
         }
         this.createApp(testWindow);
         this.createApp(testWindow);
@@ -164,14 +164,17 @@ class DebianOS
 
         const reduceButton = document.createElement("div");
         reduceButton.classList.add("reduceButton");
+        reduceButton.innerHTML = "-";
         navButton.appendChild(reduceButton)
 
         const fullscreenButton = document.createElement("div");
         fullscreenButton.classList.add("fullscreenButton");
+        fullscreenButton.innerHTML = "^"
         navButton.appendChild(fullscreenButton)
 
         const closeButton = document.createElement("div");
         closeButton.classList.add("closeButton");
+        closeButton.innerHTML = "x"
         navButton.appendChild(closeButton)
 
         topBar.appendChild(navButton);
@@ -208,7 +211,7 @@ class DebianOS
 
         const navButton = topBar.children[2]
         const windowNumber = parseInt(window.getAttribute("window_number"));
-        navButton.addEventListener("click",() => {
+        navButton.children[2].addEventListener("click",() => {
             this.closeApp(windowNumber)
         })
     }
