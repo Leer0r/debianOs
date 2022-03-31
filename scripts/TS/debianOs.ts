@@ -1,8 +1,125 @@
-interface application{
+//////////////////////APPLICATION//////////////////////////
+
+abstract class Application {
+    properties:applicationProps
+    appWindow:HTMLDivElement
+    navBar:HTMLDivElement
+
+    constructor(properties:applicationProps){
+        this.properties = {
+            description: properties.description,
+            link: properties.link,
+            logo: properties.logo,
+            name: properties.name,
+            storeName: properties.storeName,
+            appNumber: properties.appNumber
+        }
+    }
+
+    abstract getNewApp(appNumber:number):any;
+    
+
+    setAppNumber(appNumber:number){
+        this.properties.appNumber = appNumber
+    }
+    
+
+    createAppWindow() : HTMLDivElement{
+        this.appWindow = document.createElement("div");
+        this.appWindow.classList.add("window")
+        this.appWindow.setAttribute("window_number",`${this.properties.appNumber}`);
+
+        const topBar = document.createElement("div");
+        topBar.classList.add("topBar")
+
+        const appLogo = document.createElement("div");
+        appLogo.classList.add("appLogo");
+        appLogo.style.backgroundImage = this.properties.logo
+        topBar.appendChild(appLogo)
+
+        const appName = document.createElement("div");
+        appName.classList.add("appName");
+        appName.innerHTML = this.properties.name
+        topBar.appendChild(appName)
+
+        const navButton = document.createElement("div");
+        navButton.classList.add("navButton");
+
+        const reduceButton = document.createElement("div");
+        reduceButton.classList.add("reduceButton");
+        reduceButton.innerHTML = "-";
+        navButton.appendChild(reduceButton)
+
+        const fullscreenButton = document.createElement("div");
+        fullscreenButton.classList.add("fullscreenButton");
+        fullscreenButton.innerHTML = "^"
+        navButton.appendChild(fullscreenButton)
+
+        const closeButton = document.createElement("div");
+        closeButton.classList.add("closeButton");
+        closeButton.innerHTML = "x"
+        navButton.appendChild(closeButton)
+
+        topBar.appendChild(navButton);
+
+        this.appWindow.appendChild(topBar);
+        
+        const core = document.createElement("div")
+        core.classList.add("core");
+        this.appWindow.appendChild(core)
+        console.log(window);
+
+        return this.appWindow;
+    }
+
+    createAppNavBar() : HTMLDivElement{
+        this.navBar = document.createElement("div");
+        this.navBar.classList.add("appContainer")
+        this.navBar.classList.add("appDesign")
+        this.navBar.setAttribute("windowNumber",`${this.properties.appNumber}`)
+        this.navBar.style.backgroundImage = this.properties.logo;
+        return this.navBar
+    }
+
+    closeApp(){
+        this.navBar.remove()
+        this.appWindow.remove()
+    }
+}
+
+class DiscordApp extends Application {
+
+    constructor(appNumber?:number){
+        const properties:applicationProps = {
+            description:"",
+            logo: "url(../../ressources/app/Discord-Logo.png)",
+            name: "Discord",
+            link:"https://discord.com/app",
+            appNumber: appNumber,
+            storeName: "discord"
+        }
+
+        super(properties);
+        if(appNumber) {
+            this.setAppNumber(appNumber);
+        }
+    }
+
+    getNewApp(appNumber:number):Application {
+        return new DiscordApp(appNumber)
+    }
+}
+
+
+//////////////////////////DEBIAN OS/////////////////////////
+
+interface applicationProps{
     name:string,
     logo:string,
     description:string,
-    link?:string
+    link:string,
+    appNumber?:number,
+    storeName:string
 }
 
 interface osMenu{
@@ -24,14 +141,16 @@ class DebianOS
     isDown:boolean;
     currentFocusedWindow:HTMLDivElement;
     offset: number[];
-    desktopManager:Array<applicationHandle>
+    desktopManager:Array<Application> // Store instance of application running
+    appStorage:{ [storeName:string]: Application} // Store one of each application implementation to call it with the storeName
 
     constructor(navbarHook:string="#navbar", 
                 desktopHook:string="#desktop",
                 osMenuPannelHook:string=desktopHook+" #osMenuPannelContainer",
                 windowsContainerHook:string=desktopHook+" #windowsContainer"){
-        console.log("init class constructor")
         
+                    this.appStorage = {}
+        this.addAllApp()
         this.setnavBar(navbarHook);
         this.setDesktop(desktopHook);
         this.setOsMenuPannel(osMenuPannelHook);
@@ -40,11 +159,19 @@ class DebianOS
 
     //Initial set
 
+    addAllApp(){
+        this.addApp(new DiscordApp());
+    }
+
+    addApp(application:Application){
+        this.appStorage[application.properties.storeName] = application;
+    }
+
     setnavBar(navbarHook:string) {
         this.navBar = document.querySelector(navbarHook);
     }
 
-    setDesktop(desktopHook:string){
+    setDesktop(desktopHook:string): void{
         this.isDown = false;
         this.desktop = document.querySelector(desktopHook);
         this.setDesktopBackground();
@@ -80,13 +207,7 @@ class DebianOS
     setWindowsContainer(windowsContainerHook:string){
         this.windowsContainer = document.querySelector(windowsContainerHook);
         this.desktopManager = [];
-        const testWindow:application = {
-            description:"",
-            logo: "url(../../ressources/app/Discord-Logo.png)",
-            name: "Discord"
-        }
-        this.createApp(testWindow);
-        this.createApp(testWindow);
+        this.createApp("discord")
     }
 
     //Desktop functions
@@ -108,7 +229,6 @@ class DebianOS
     setOsMenuPannelContentUserAccount(target:HTMLElement){
         const userLogo = target.children[0];
         const userName = target.children[1];
-
     }
 
     setOsMenuPannelContentSearchBar(target:HTMLElement){
@@ -127,71 +247,24 @@ class DebianOS
 
     }
 
-    createApp(application:application){
-        let appNumber = this.desktopManager.length ;
-        const appAdd:applicationHandle = {
-            window: this.createAppWindow(application, appNumber),
-            navbarIcon: this.addAppNavBar(application, appNumber)
-        }
-        this.desktopManager.push(appAdd)
+    getNewAppNumber(){
+        return this.desktopManager.length
+    }
+
+    createApp(appStorageName:string){
+        const appNumber = this.getNewAppNumber()
+        console.log(this.appStorage)
+        const newApp:Application = this.appStorage[appStorageName].getNewApp(appNumber);
+        this.addAppToDOM(newApp);
+        this.desktopManager.push(newApp);
+    }
+
+    addAppToDOM(application:Application){
+        this.windowsContainer.appendChild(application.createAppWindow());
+        this.navBar.appendChild(application.createAppNavBar())
     }
 
     closeApp(appNumber:number){
-        this.desktopManager[appNumber].window.remove()
-        this.desktopManager[appNumber].navbarIcon.remove()
-    }
-
-    createAppWindow(application:application, appNumber:number){
-        const window = document.createElement("div");
-        window.classList.add("window")
-        window.setAttribute("window_number",`${appNumber}`);
-
-        const topBar = document.createElement("div");
-        topBar.classList.add("topBar")
-
-        const appLogo = document.createElement("div");
-        appLogo.classList.add("appLogo");
-        appLogo.style.backgroundImage = application.logo
-        topBar.appendChild(appLogo)
-
-        const appName = document.createElement("div");
-        appName.classList.add("appName");
-        appName.innerHTML = application.name
-        topBar.appendChild(appName)
-
-        const navButton = document.createElement("div");
-        navButton.classList.add("navButton");
-
-        const reduceButton = document.createElement("div");
-        reduceButton.classList.add("reduceButton");
-        reduceButton.innerHTML = "-";
-        navButton.appendChild(reduceButton)
-
-        const fullscreenButton = document.createElement("div");
-        fullscreenButton.classList.add("fullscreenButton");
-        fullscreenButton.innerHTML = "^"
-        navButton.appendChild(fullscreenButton)
-
-        const closeButton = document.createElement("div");
-        closeButton.classList.add("closeButton");
-        closeButton.innerHTML = "x"
-        navButton.appendChild(closeButton)
-
-        topBar.appendChild(navButton);
-
-        window.appendChild(topBar);
-        
-        const core = document.createElement("div")
-        core.classList.add("core");
-        window.appendChild(core)
-        console.log(window);
-        this.setupWindowEventListener(window)
-        
-        this.windowsContainer.appendChild(window)
-
-        return window;
-
-
     }
 
     setupWindowEventListener(window:HTMLDivElement){
@@ -232,16 +305,6 @@ class DebianOS
         }
 
         this.addOsMenu(this.osMenu);
-    }
-
-    addAppNavBar(app:application,appNumber:number) {
-        let osAppDiv:HTMLDivElement = document.createElement("div");
-        osAppDiv.classList.add("appContainer")
-        osAppDiv.classList.add("appDesign")
-        osAppDiv.setAttribute("windowNumber",`${appNumber}`)
-        osAppDiv.style.backgroundImage = app.logo;
-        this.navBar.appendChild(osAppDiv);
-        return osAppDiv
     }
 
     addOsMenu(osMenuInfo:osMenu){
