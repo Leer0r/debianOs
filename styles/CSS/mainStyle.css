@@ -103,7 +103,7 @@ body #desktop #windowsContainer .window .core {
 }
 body #desktop #osMenuPannelContainer {
   width: 50%;
-  height: 0%;
+  height: 60%;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -156,6 +156,22 @@ body #desktop #osMenuPannelContainer .leftSubPannel {
 }
 body #desktop #osMenuPannelContainer .rightSubPannel {
   grid-area: 2/3/8/7;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+body #desktop #osMenuPannelContainer .rightSubPannel .appLaucher {
+  border-radius: 5px;
+  width: 70px;
+  height: 70px;
+  background-color: #8c8d94;
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: contain;
+  /* Resize the background image to cover the entire container */
+  cursor: pointer;
 }
 body #desktop #osMenuPannelContainer .bottomSubPannel {
   grid-area: 8/1/9/7;

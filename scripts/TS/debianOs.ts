@@ -150,11 +150,11 @@ class DebianOS
                 windowsContainerHook:string=desktopHook+" #windowsContainer"){
         
                     this.appStorage = {}
-        this.addAllApp()
-        this.setnavBar(navbarHook);
-        this.setDesktop(desktopHook);
-        this.setOsMenuPannel(osMenuPannelHook);
-        this.setWindowsContainer(windowsContainerHook);
+                    this.setnavBar(navbarHook);
+                    this.setDesktop(desktopHook);
+                    this.setOsMenuPannel(osMenuPannelHook);
+                    this.addAllApp()
+                    this.setWindowsContainer(windowsContainerHook);
     }
 
     //Initial set
@@ -165,6 +165,13 @@ class DebianOS
 
     addApp(application:Application){
         this.appStorage[application.properties.storeName] = application;
+        const newAppLaucher:HTMLDivElement = document.createElement("div");
+        newAppLaucher.classList.add("appLaucher");
+        newAppLaucher.style.backgroundImage = application.properties.logo
+        newAppLaucher.addEventListener("click", async () => {
+            this.createApp(application.properties.storeName);
+        })
+        this.osMenuPannel.children[3].appendChild(newAppLaucher);
     }
 
     setnavBar(navbarHook:string) {
@@ -260,11 +267,15 @@ class DebianOS
     }
 
     addAppToDOM(application:Application){
-        this.windowsContainer.appendChild(application.createAppWindow());
-        this.navBar.appendChild(application.createAppNavBar())
+        const appWindow = application.createAppWindow()
+        const appNavBar = application.createAppNavBar()
+        this.setupWindowEventListener(appWindow)
+        this.windowsContainer.appendChild(appWindow);
+        this.navBar.appendChild(appNavBar);
     }
 
     closeApp(appNumber:number){
+        this.desktopManager[appNumber].closeApp()
     }
 
     setupWindowEventListener(window:HTMLDivElement){
