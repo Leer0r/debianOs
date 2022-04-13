@@ -23,8 +23,8 @@ body {
                 width: 700px;
                 height: 400px;
                 margin: 0px;
-                border-radius: 103%;
                 z-index: 0;
+                border: 2px solid #23252e;
                 .topBar {
                     width: 100%;
                     height: 5%;
@@ -63,6 +63,7 @@ body {
                         /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
                     }
                     .navButton {
+                        cursor: pointer;
                         position: absolute;
                         right: 0;
                         height: 5%;
@@ -96,11 +97,18 @@ body {
                     width: 100%;
                     height: 95%;
                     background-color: #232a35;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    .contentLink {
+                        width: 100%;
+                        height: 100%;
+                    }
                 }
             }
         }
         #osMenuPannelContainer {
-            width: 50%;
+            width: 40%;
             height: 60%;
             position: absolute;
             bottom: 0;
@@ -134,8 +142,9 @@ body {
                         border-radius: 50%;
                         height: 40px;
                         width: 40px;
-                        background-color: aqua;
+                        background-color: rgb(92, 91, 99);
                         margin-right: 10px;
+                        margin-left: 10px;
                     }
                 }
                 .userName {
@@ -143,6 +152,18 @@ body {
                     vertical-align: middle;
                     color: #e2e4eb;
                     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    -webkit-touch-callout: none;
+                    /* iOS Safari */
+                    -webkit-user-select: none;
+                    /* Safari */
+                    -khtml-user-select: none;
+                    /* Konqueror HTML */
+                    -moz-user-select: none;
+                    /* Old versions of Firefox */
+                    -ms-user-select: none;
+                    /* Internet Explorer/Edge */
+                    user-select: none;
+                    /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
                 }
             }
             .searchBar {
@@ -160,7 +181,7 @@ body {
                     border-radius: 5px;
                     width: 70px;
                     height: 70px;
-                    background-color: #8c8d94;
+                    background-color: #3c3c3f;
                     background-position: center;
                     /* Center the image */
                     background-repeat: no-repeat;
@@ -168,6 +189,8 @@ body {
                     background-size: contain;
                     /* Resize the background image to cover the entire container */
                     cursor: pointer;
+                    margin-left: 10px;
+                    margin-right: 10px;
                 }
             }
             .bottomSubPannel {
@@ -178,7 +201,7 @@ body {
     #navbar {
         position: fixed;
         bottom: 0;
-        height: 5%;
+        height: 48.438px;
         width: 100%;
         background-color: rgb(42, 46, 54);
         display: flex;

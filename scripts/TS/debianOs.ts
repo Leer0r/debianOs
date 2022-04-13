@@ -66,6 +66,11 @@ abstract class Application {
         
         const core = document.createElement("div")
         core.classList.add("core");
+
+        const iframe = document.createElement("iframe");
+        iframe.classList.add("contentLink")
+        iframe.src = this.properties.link
+        core.appendChild(iframe);
         this.appWindow.appendChild(core)
         console.log(window);
 
@@ -107,6 +112,29 @@ class DiscordApp extends Application {
 
     getNewApp(appNumber:number):Application {
         return new DiscordApp(appNumber)
+    }
+}
+
+class GoogleApp extends Application {
+
+    constructor(appNumber?:number){
+        const properties:applicationProps = {
+            description:"",
+            logo: "url(../../ressources/app/Google_logo.png)",
+            name: "Google",
+            link:"https://www.google.com/",
+            appNumber: appNumber,
+            storeName: "google"
+        }
+
+        super(properties);
+        if(appNumber) {
+            this.setAppNumber(appNumber);
+        }
+    }
+
+    getNewApp(appNumber:number):Application {
+        return new GoogleApp(appNumber)
     }
 }
 
@@ -161,6 +189,16 @@ class DebianOS
 
     addAllApp(){
         this.addApp(new DiscordApp());
+        this.addApp(new GoogleApp())
+        this.addApp(new GoogleApp())
+        this.addApp(new GoogleApp())
+        this.addApp(new GoogleApp())
+        this.addApp(new GoogleApp())
+        this.addApp(new GoogleApp())
+        this.addApp(new GoogleApp())
+        this.addApp(new GoogleApp())
+        this.addApp(new GoogleApp())
+
     }
 
     addApp(application:Application){
@@ -199,6 +237,15 @@ class DebianOS
                     y : event.clientY
         
                 };
+                // let leftOffset:number = mousePosition.x + this.offset[0];
+                // if(leftOffset < 0 || leftOffset > document.body.clientWidth){
+                //     leftOffset = this.offset[0]
+                // }
+                
+                // let topOffset:number = mousePosition.y + this.offset[1]
+                // if(topOffset < 0 || topOffset > document.body.clientHeight){
+                //     topOffset = this.offset[1]
+                // }
                 this.currentFocusedWindow.style.left = (mousePosition.x + this.offset[0]) + 'px';
                 this.currentFocusedWindow.style.top  = (mousePosition.y + this.offset[1]) + 'px';
             }

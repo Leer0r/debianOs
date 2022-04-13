@@ -1,0 +1,26 @@
+{
+    "name": "debianos",
+    "version": "1.0.0",
+    "description": "Try to recreate an OS interface and functionality with basic web technologies (html scss and typescript)",
+    "main": "lauch.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon lauch.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Leer0r/debianOs.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Leer0r/debianOs/issues"
+    },
+    "homepage": "https://github.com/Leer0r/debianOs#readme",
+    "dependencies": {
+        "express": "^4.17.3",
+        "expressjs": "^1.0.1",
+        "https": "^1.0.0",
+        "path": "^0.12.7"
+    }
+}

@@ -94,6 +94,10 @@ var Application = /** @class */ (function () {
         this.appWindow.appendChild(topBar);
         var core = document.createElement("div");
         core.classList.add("core");
+        var iframe = document.createElement("iframe");
+        iframe.classList.add("contentLink");
+        iframe.src = this.properties.link;
+        core.appendChild(iframe);
         this.appWindow.appendChild(core);
         console.log(window);
         return this.appWindow;
@@ -135,6 +139,29 @@ var DiscordApp = /** @class */ (function (_super) {
     };
     return DiscordApp;
 }(Application));
+var GoogleApp = /** @class */ (function (_super) {
+    __extends(GoogleApp, _super);
+    function GoogleApp(appNumber) {
+        var _this = this;
+        var properties = {
+            description: "",
+            logo: "url(../../ressources/app/Google_logo.png)",
+            name: "Google",
+            link: "https://www.google.com/",
+            appNumber: appNumber,
+            storeName: "google"
+        };
+        _this = _super.call(this, properties) || this;
+        if (appNumber) {
+            _this.setAppNumber(appNumber);
+        }
+        return _this;
+    }
+    GoogleApp.prototype.getNewApp = function (appNumber) {
+        return new GoogleApp(appNumber);
+    };
+    return GoogleApp;
+}(Application));
 var DebianOS = /** @class */ (function () {
     function DebianOS(navbarHook, desktopHook, osMenuPannelHook, windowsContainerHook) {
         if (navbarHook === void 0) { navbarHook = "#navbar"; }
@@ -151,6 +178,15 @@ var DebianOS = /** @class */ (function () {
     //Initial set
     DebianOS.prototype.addAllApp = function () {
         this.addApp(new DiscordApp());
+        this.addApp(new GoogleApp());
+        this.addApp(new GoogleApp());
+        this.addApp(new GoogleApp());
+        this.addApp(new GoogleApp());
+        this.addApp(new GoogleApp());
+        this.addApp(new GoogleApp());
+        this.addApp(new GoogleApp());
+        this.addApp(new GoogleApp());
+        this.addApp(new GoogleApp());
     };
     DebianOS.prototype.addApp = function (application) {
         var _this = this;
@@ -187,6 +223,14 @@ var DebianOS = /** @class */ (function () {
                     x: event.clientX,
                     y: event.clientY
                 };
+                // let leftOffset:number = mousePosition.x + this.offset[0];
+                // if(leftOffset < 0 || leftOffset > document.body.clientWidth){
+                //     leftOffset = this.offset[0]
+                // }
+                // let topOffset:number = mousePosition.y + this.offset[1]
+                // if(topOffset < 0 || topOffset > document.body.clientHeight){
+                //     topOffset = this.offset[1]
+                // }
                 _this.currentFocusedWindow.style.left = (mousePosition.x + _this.offset[0]) + 'px';
                 _this.currentFocusedWindow.style.top = (mousePosition.y + _this.offset[1]) + 'px';
             }

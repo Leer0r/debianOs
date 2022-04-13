@@ -26,8 +26,8 @@ body #desktop #windowsContainer .window {
   width: 700px;
   height: 400px;
   margin: 0px;
-  border-radius: 103%;
   z-index: 0;
+  border: 2px solid #23252e;
 }
 body #desktop #windowsContainer .window .topBar {
   width: 100%;
@@ -68,6 +68,7 @@ body #desktop #windowsContainer .window .topBar .appName {
   /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 body #desktop #windowsContainer .window .topBar .navButton {
+  cursor: pointer;
   position: absolute;
   right: 0;
   height: 5%;
@@ -100,9 +101,16 @@ body #desktop #windowsContainer .window .core {
   width: 100%;
   height: 95%;
   background-color: #232a35;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body #desktop #windowsContainer .window .core .contentLink {
+  width: 100%;
+  height: 100%;
 }
 body #desktop #osMenuPannelContainer {
-  width: 50%;
+  width: 40%;
   height: 60%;
   position: absolute;
   bottom: 0;
@@ -139,14 +147,27 @@ body #desktop #osMenuPannelContainer .userAccount .userLogoContainer .userLogo {
   border-radius: 50%;
   height: 40px;
   width: 40px;
-  background-color: aqua;
+  background-color: #5c5b63;
   margin-right: 10px;
+  margin-left: 10px;
 }
 body #desktop #osMenuPannelContainer .userAccount .userName {
   text-align: center;
   vertical-align: middle;
   color: #e2e4eb;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 body #desktop #osMenuPannelContainer .searchBar {
   grid-area: 1/3/2/7;
@@ -164,7 +185,7 @@ body #desktop #osMenuPannelContainer .rightSubPannel .appLaucher {
   border-radius: 5px;
   width: 70px;
   height: 70px;
-  background-color: #8c8d94;
+  background-color: #3c3c3f;
   background-position: center;
   /* Center the image */
   background-repeat: no-repeat;
@@ -172,6 +193,8 @@ body #desktop #osMenuPannelContainer .rightSubPannel .appLaucher {
   background-size: contain;
   /* Resize the background image to cover the entire container */
   cursor: pointer;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 body #desktop #osMenuPannelContainer .bottomSubPannel {
   grid-area: 8/1/9/7;
@@ -179,7 +202,7 @@ body #desktop #osMenuPannelContainer .bottomSubPannel {
 body #navbar {
   position: fixed;
   bottom: 0;
-  height: 5%;
+  height: 48.438px;
   width: 100%;
   background-color: #2a2e36;
   display: flex;
