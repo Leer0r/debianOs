@@ -116,7 +116,7 @@ body #desktop #osMenuPannelContainer {
   bottom: 0;
   left: 0;
   background-color: #25262F;
-  border-bottom: solid 0px grey;
+  border-bottom: solid 0px #727272;
   border-radius: 0% 1% 0% 0%;
   transition: height 0.5s;
   z-index: 21;
