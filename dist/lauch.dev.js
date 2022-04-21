@@ -8,10 +8,15 @@ var express = require("express");
 
 var path = require("path");
 
-var options = {
-  key: fs.readFileSync("C:\\Users\\LRO\\code\\web\\debianOs\\ressources\\SSL\\localhost-key.pem"),
-  cert: fs.readFileSync("C:\\Users\\LRO\\code\\web\\debianOs\\ressources\\SSL\\localhost.pem")
-};
+var options = {};
+
+if (!process.env.PROD) {
+  options = {
+    key: fs.readFileSync("C:\\Users\\LRO\\code\\web\\debianOs\\ressources\\SSL\\localhost-key.pem"),
+    cert: fs.readFileSync("C:\\Users\\LRO\\code\\web\\debianOs\\ressources\\SSL\\localhost.pem")
+  };
+}
+
 var app = express();
 app.get("/", function _callee(req, res, next) {
   return regeneratorRuntime.async(function _callee$(_context) {

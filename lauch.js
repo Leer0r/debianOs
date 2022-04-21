@@ -2,10 +2,13 @@ const https = require("https");
 const fs = require('fs');
 const express = require("express")
 const path = require("path")
-const options = {
-    key: fs.readFileSync('C:\\Users\\LRO\\code\\web\\debianOs\\ressources\\SSL\\localhost-key.pem'),
-    cert: fs.readFileSync('C:\\Users\\LRO\\code\\web\\debianOs\\ressources\\SSL\\localhost.pem'),
-};
+let options = {};
+if (!process.env.PROD) {
+    options = {
+        key: fs.readFileSync('C:\\Users\\LRO\\code\\web\\debianOs\\ressources\\SSL\\localhost-key.pem'),
+        cert: fs.readFileSync('C:\\Users\\LRO\\code\\web\\debianOs\\ressources\\SSL\\localhost.pem'),
+    };
+}
 
 const app = express();
 
