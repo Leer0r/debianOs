@@ -32,4 +32,4 @@ app.get("/ressources/os/:file", async(req, res, next) => {
 
 https
     .createServer(options, app)
-    .listen(5502);
+    .listen(process.env.PORT || 10002);

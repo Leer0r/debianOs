@@ -83,4 +83,4 @@ app.get("/ressources/os/:file", function _callee5(req, res, next) {
     }
   });
 });
-https.createServer(options, app).listen(5502);
+https.createServer(options, app).listen(process.env.PORT || 10002);
