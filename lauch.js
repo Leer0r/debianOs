@@ -1,12 +1,14 @@
 const https = require("https");
 const fs = require('fs');
 const express = require("express")
+const os = require("os")
 const path = require("path")
 let options = {};
 if (!process.env.PROD) {
+    SSLlocation = path.join(__dirname, 'ressources', 'SSL');
     options = {
-        key: fs.readFileSync('C:\\Users\\LRO\\code\\web\\debianOs\\ressources\\SSL\\localhost-key.pem'),
-        cert: fs.readFileSync('C:\\Users\\LRO\\code\\web\\debianOs\\ressources\\SSL\\localhost.pem'),
+        key: fs.readFileSync(path.join(SSLlocation, 'localhost-key.pem')),
+        cert: fs.readFileSync(path.join(SSLlocation, 'localhost.pem')),
     };
 }
 
@@ -35,4 +37,6 @@ app.get("/ressources/os/:file", async(req, res, next) => {
 
 https
     .createServer(options, app)
-    .listen(process.env.PORT || 10002);
+    .listen(process.env.PORT || 10002, () => {
+        console.log("Run on port 10002")
+    });

@@ -6,14 +6,17 @@ var fs = require('fs');
 
 var express = require("express");
 
+var os = require("os");
+
 var path = require("path");
 
 var options = {};
 
 if (!process.env.PROD) {
+  SSLlocation = path.join(__dirname, 'ressources', 'SSL');
   options = {
-    key: fs.readFileSync("C:\\Users\\LRO\\code\\web\\debianOs\\ressources\\SSL\\localhost-key.pem"),
-    cert: fs.readFileSync("C:\\Users\\LRO\\code\\web\\debianOs\\ressources\\SSL\\localhost.pem")
+    key: fs.readFileSync(path.join(SSLlocation, 'localhost-key.pem')),
+    cert: fs.readFileSync(path.join(SSLlocation, 'localhost.pem'))
   };
 }
 
@@ -88,4 +91,6 @@ app.get("/ressources/os/:file", function _callee5(req, res, next) {
     }
   });
 });
-https.createServer(options, app).listen(process.env.PORT || 10002);
+https.createServer(options, app).listen(process.env.PORT || 10002, function () {
+  console.log("Run on port 10002");
+});
