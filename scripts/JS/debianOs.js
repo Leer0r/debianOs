@@ -58,9 +58,24 @@ var Application = /** @class */ (function () {
             storeName: properties.storeName,
             appNumber: properties.appNumber
         };
+        this.displayed = true;
     }
     Application.prototype.setAppNumber = function (appNumber) {
         this.properties.appNumber = appNumber;
+    };
+    Application.prototype.setFullSize = function () {
+        this.appWindow.style.width = "100%";
+        this.appWindow.style.height = "100%";
+        this.appWindow.style.top = "0";
+        this.appWindow.style.left = "0";
+    };
+    Application.prototype.setMinimize = function () {
+        this.appWindow.style.display = "none";
+        this.displayed = false;
+    };
+    Application.prototype.setDisplay = function () {
+        this.appWindow.style.display = "";
+        this.displayed = true;
     };
     Application.prototype.createAppWindow = function () {
         this.appWindow = document.createElement("div");
@@ -244,7 +259,6 @@ var DebianOS = /** @class */ (function () {
     DebianOS.prototype.setWindowsContainer = function (windowsContainerHook) {
         this.windowsContainer = document.querySelector(windowsContainerHook);
         this.desktopManager = [];
-        this.createApp("discord");
     };
     //Desktop functions
     DebianOS.prototype.setDesktopBackground = function () {
@@ -280,16 +294,43 @@ var DebianOS = /** @class */ (function () {
         var newApp = this.appStorage[appStorageName].getNewApp(appNumber);
         this.addAppToDOM(newApp);
         this.desktopManager.push(newApp);
+        if (this.currentFocusedWindow != undefined) {
+            this.currentFocusedWindow.style.zIndex = "10";
+        }
+        if (this.osMenuPannel.style.height != "0%") {
+            this.toogleMenu();
+        }
     };
     DebianOS.prototype.addAppToDOM = function (application) {
+        var _this = this;
         var appWindow = application.createAppWindow();
         var appNavBar = application.createAppNavBar();
+        appNavBar.addEventListener("click", function () {
+            _this.toogleDisplay(application.properties.appNumber);
+        });
         this.setupWindowEventListener(appWindow);
         this.windowsContainer.appendChild(appWindow);
         this.navBar.appendChild(appNavBar);
     };
     DebianOS.prototype.closeApp = function (appNumber) {
         this.desktopManager[appNumber].closeApp();
+    };
+    DebianOS.prototype.reduceApp = function (appNumber) {
+        this.desktopManager[appNumber].setMinimize();
+    };
+    DebianOS.prototype.fullSizeApp = function (appNumber) {
+        this.desktopManager[appNumber].setFullSize();
+    };
+    DebianOS.prototype.displayApp = function (appNumber) {
+        this.desktopManager[appNumber].setDisplay();
+    };
+    DebianOS.prototype.toogleDisplay = function (appNumber) {
+        if (this.desktopManager[appNumber].displayed) {
+            this.desktopManager[appNumber].setMinimize();
+        }
+        else {
+            this.desktopManager[appNumber].setDisplay();
+        }
     };
     DebianOS.prototype.setupWindowEventListener = function (window) {
         var _this = this;
@@ -307,6 +348,12 @@ var DebianOS = /** @class */ (function () {
         }, true);
         var navButton = topBar.children[2];
         var windowNumber = parseInt(window.getAttribute("window_number"));
+        navButton.children[0].addEventListener("click", function () {
+            _this.reduceApp(windowNumber);
+        });
+        navButton.children[1].addEventListener("click", function () {
+            _this.fullSizeApp(windowNumber);
+        });
         navButton.children[2].addEventListener("click", function () {
             _this.closeApp(windowNumber);
         });

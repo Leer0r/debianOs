@@ -4,6 +4,7 @@ abstract class Application {
     properties:applicationProps
     appWindow:HTMLDivElement
     navBar:HTMLDivElement
+    displayed:boolean
 
     constructor(properties:applicationProps){
         this.properties = {
@@ -14,6 +15,7 @@ abstract class Application {
             storeName: properties.storeName,
             appNumber: properties.appNumber
         }
+        this.displayed = true
     }
 
     abstract getNewApp(appNumber:number):any;
@@ -21,6 +23,23 @@ abstract class Application {
 
     setAppNumber(appNumber:number){
         this.properties.appNumber = appNumber
+    }
+
+    setFullSize(){
+        this.appWindow.style.width = "100%"
+        this.appWindow.style.height = "100%"
+        this.appWindow.style.top = "0"
+        this.appWindow.style.left = "0"
+    }
+
+    setMinimize(){
+        this.appWindow.style.display = "none"
+        this.displayed = false
+    }
+
+    setDisplay(){
+        this.appWindow.style.display = ""
+        this.displayed = true
     }
     
 
@@ -150,6 +169,10 @@ interface applicationProps{
     storeName:string
 }
 
+interface windowProps{
+
+}
+
 interface osMenu{
     logo:string
 }
@@ -261,7 +284,6 @@ class DebianOS
     setWindowsContainer(windowsContainerHook:string){
         this.windowsContainer = document.querySelector(windowsContainerHook);
         this.desktopManager = [];
-        this.createApp("discord")
     }
 
     //Desktop functions
@@ -311,11 +333,20 @@ class DebianOS
         const newApp:Application = this.appStorage[appStorageName].getNewApp(appNumber);
         this.addAppToDOM(newApp);
         this.desktopManager.push(newApp);
+        if(this.currentFocusedWindow != undefined) {
+            this.currentFocusedWindow.style.zIndex = "10"
+        }
+        if(this.osMenuPannel.style.height != "0%"){
+            this.toogleMenu()
+        }
     }
 
     addAppToDOM(application:Application){
         const appWindow = application.createAppWindow()
         const appNavBar = application.createAppNavBar()
+        appNavBar.addEventListener("click", () => {
+            this.toogleDisplay(application.properties.appNumber)
+        })
         this.setupWindowEventListener(appWindow)
         this.windowsContainer.appendChild(appWindow);
         this.navBar.appendChild(appNavBar);
@@ -323,6 +354,27 @@ class DebianOS
 
     closeApp(appNumber:number){
         this.desktopManager[appNumber].closeApp()
+    }
+
+    reduceApp(appNumber:number){
+        this.desktopManager[appNumber].setMinimize()
+    }
+
+    fullSizeApp(appNumber:number){
+        this.desktopManager[appNumber].setFullSize()
+    }
+
+    displayApp(appNumber:number){
+        this.desktopManager[appNumber].setDisplay()
+    }
+
+    toogleDisplay(appNumber:number){
+        if(this.desktopManager[appNumber].displayed){
+            this.desktopManager[appNumber].setMinimize()
+        }
+        else {
+            this.desktopManager[appNumber].setDisplay()
+        }
     }
 
     setupWindowEventListener(window:HTMLDivElement){
@@ -342,6 +394,12 @@ class DebianOS
 
         const navButton = topBar.children[2]
         const windowNumber = parseInt(window.getAttribute("window_number"));
+        navButton.children[0].addEventListener("click", () => {
+            this.reduceApp(windowNumber)
+        })
+        navButton.children[1].addEventListener("click",() => {
+            this.fullSizeApp(windowNumber)
+        })
         navButton.children[2].addEventListener("click",() => {
             this.closeApp(windowNumber)
         })
