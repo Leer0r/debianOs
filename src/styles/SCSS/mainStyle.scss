@@ -1,0 +1,238 @@
+body {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    padding: 0;
+    margin: 0;
+    #desktop {
+        position: fixed;
+        height: 95%;
+        width: 100%;
+        background-position: center;
+        /* Center the image */
+        background-repeat: no-repeat;
+        /* Do not repeat the image */
+        background-size: cover;
+        /* Resize the background image to cover the entire container */
+        #windowsContainer {
+            width: 100%;
+            height: 100%;
+            .window {
+                position: absolute;
+                width: 700px;
+                height: 400px;
+                margin: 0px;
+                z-index: 30;
+                border: 2px solid #23252e;
+                .topBar {
+                    width: 100%;
+                    height: 20px;
+                    background-color: #23252e;
+                    display: flex;
+                    flex-flow: row nowrap;
+                    &:hover {
+                        cursor: move;
+                    }
+                    .appLogo {
+                        background-position: center;
+                        /* Center the image */
+                        background-repeat: no-repeat;
+                        /* Do not repeat the image */
+                        background-size: contain;
+                        /* Resize the background image to cover the entire container */
+                        border-radius: 50%;
+                        height: 100%;
+                        width: 20px;
+                    }
+                    .appName {
+                        padding-left: 10px;
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        color: #e2e4eb;
+                        -webkit-touch-callout: none;
+                        /* iOS Safari */
+                        -webkit-user-select: none;
+                        /* Safari */
+                        -khtml-user-select: none;
+                        /* Konqueror HTML */
+                        -moz-user-select: none;
+                        /* Old versions of Firefox */
+                        -ms-user-select: none;
+                        /* Internet Explorer/Edge */
+                        user-select: none;
+                        /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+                    }
+                    .navButton {
+                        cursor: pointer;
+                        position: absolute;
+                        right: 0;
+                        height: 18px;
+                        width: 100px;
+                        display: flex;
+                        flex-flow: row nowrap;
+                        &>* {
+                            text-align: center;
+                            font-family: 'Arial Narrow', Arial, sans-serif;
+                            color: aliceblue;
+                            transition: background-color 1s;
+                        }
+                        &>*:hover {
+                            background-color: #474750;
+                        }
+                        .reduceButton {
+                            flex: 1;
+                        }
+                        .fullscreenButton {
+                            flex: 1;
+                        }
+                        .closeButton {
+                            flex: 1;
+                            display: inline-block;
+                            content: "x";
+                            /* This will render the 'X' */
+                        }
+                    }
+                }
+                .core {
+                    width: 100%;
+                    height: 95%;
+                    background-color: #232a35;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    .contentLink {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+        #osMenuPannelContainer {
+            width: 40%;
+            height: 0%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #25262F;
+            border-bottom: solid 0px rgb(114, 114, 114);
+            border-radius: 0% 1% 0% 0%;
+            transition: height .5s;
+            z-index: 21;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            grid-column-gap: 0px;
+            grid-row-gap: 0px;
+            .userAccount {
+                grid-area: 1 / 1 / 2 / 3;
+                display: flex;
+                flex-flow: row nowrap;
+                .userLogoContainer {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    .userLogo {
+                        background-image: url("/ressources/os/osLogo.png");
+                        background-position: center;
+                        /* Center the image */
+                        background-repeat: no-repeat;
+                        /* Do not repeat the image */
+                        background-size: contain;
+                        /* Resize the background image to cover the entire container */
+                        border-radius: 50%;
+                        height: 40px;
+                        width: 40px;
+                        background-color: rgb(92, 91, 99);
+                        margin-right: 10px;
+                        margin-left: 10px;
+                    }
+                }
+                .userName {
+                    text-align: center;
+                    vertical-align: middle;
+                    color: #e2e4eb;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    -webkit-touch-callout: none;
+                    /* iOS Safari */
+                    -webkit-user-select: none;
+                    /* Safari */
+                    -khtml-user-select: none;
+                    /* Konqueror HTML */
+                    -moz-user-select: none;
+                    /* Old versions of Firefox */
+                    -ms-user-select: none;
+                    /* Internet Explorer/Edge */
+                    user-select: none;
+                    /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+                }
+            }
+            .searchBar {
+                grid-area: 1 / 3 / 2 / 7;
+            }
+            .leftSubPannel {
+                grid-area: 2 / 1 / 8 / 3;
+            }
+            .rightSubPannel {
+                grid-area: 2 / 3 / 8 / 7;
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: flex-start;
+                .appLaucher {
+                    border-radius: 5px;
+                    width: 70px;
+                    height: 70px;
+                    background-color: #3c3c3f;
+                    background-position: center;
+                    /* Center the image */
+                    background-repeat: no-repeat;
+                    /* Do not repeat the image */
+                    background-size: contain;
+                    /* Resize the background image to cover the entire container */
+                    cursor: pointer;
+                    margin-left: 10px;
+                    margin-right: 10px;
+                }
+            }
+            .bottomSubPannel {
+                grid-area: 8 / 1 / 9 / 7;
+            }
+        }
+    }
+    #navbar {
+        position: fixed;
+        bottom: 0;
+        height: 48.438px;
+        width: 100%;
+        background-color: rgb(42, 46, 54);
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        .appContainer {
+            height: 100%;
+            width: 50px;
+            background-position: center;
+            /* Center the image */
+            background-repeat: no-repeat;
+            /* Do not repeat the image */
+            background-size: 70%;
+            /* Resize the background image to cover the entire container */
+        }
+        .appDesign {
+            background-color: #474750;
+            border-top: 4px solid grey;
+            margin-right: 5px;
+            transition: background-color .75s;
+            &:hover {
+                background-color: rgb(87, 95, 102);
+            }
+        }
+        #osMenuDesign {
+            border-right: solid 3px rgb(78, 112, 112);
+            margin-right: 10px;
+            transition: background-color .75s;
+            &:hover {
+                background-color: rgb(70, 77, 83);
+            }
+        }
+    }
+}
