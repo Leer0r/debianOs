@@ -37,14 +37,6 @@ class DebianOS
     addAllApp(){
         this.addApp(new DiscordApp());
         this.addApp(new GoogleApp())
-        this.addApp(new GoogleApp())
-        this.addApp(new GoogleApp())
-        this.addApp(new GoogleApp())
-        this.addApp(new GoogleApp())
-        this.addApp(new GoogleApp())
-        this.addApp(new GoogleApp())
-        this.addApp(new GoogleApp())
-        this.addApp(new GoogleApp())
 
     }
 
@@ -175,8 +167,8 @@ class DebianOS
         this.desktopManager[appNumber].setMinimize()
     }
 
-    fullSizeApp(appNumber:number){
-        this.desktopManager[appNumber].setFullSize()
+    toogleSizeAppSizeApp(appNumber:number){
+        this.desktopManager[appNumber].toogleSize()
     }
 
     displayApp(appNumber:number){
@@ -212,7 +204,7 @@ class DebianOS
             this.reduceApp(windowNumber)
         })
         navButton.children[1].addEventListener("click",() => {
-            this.fullSizeApp(windowNumber)
+            this.toogleSizeAppSizeApp(windowNumber)
         })
         navButton.children[2].addEventListener("click",() => {
             this.closeApp(windowNumber)

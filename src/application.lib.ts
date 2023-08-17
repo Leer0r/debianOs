@@ -13,17 +13,26 @@ export interface osMenu{
 interface windowProps{
 
 }
+
 interface applicationHandle{
     window:HTMLDivElement,
     navbarIcon:HTMLDivElement
 }
 
+interface appSizeSave {
+    width: string,
+    heigth: string,
+    left:string,
+    top: string
+}
 
 abstract class Application {
     properties:applicationProps
     appWindow:HTMLDivElement
     navBar:HTMLDivElement
     displayed:boolean
+    fullSized: boolean
+    appSize:appSizeSave
 
     constructor(properties:applicationProps){
         this.properties = {
@@ -35,6 +44,7 @@ abstract class Application {
             appNumber: properties.appNumber
         }
         this.displayed = true
+        this.fullSized = false
     }
 
     abstract getNewApp(appNumber:number):any;
@@ -44,11 +54,26 @@ abstract class Application {
         this.properties.appNumber = appNumber
     }
 
-    setFullSize(){
-        this.appWindow.style.width = "100%"
-        this.appWindow.style.height = "100%"
-        this.appWindow.style.top = "0"
-        this.appWindow.style.left = "0"
+    toogleSize(){
+        if(this.fullSized){
+            this.appWindow.style.height = this.appSize.heigth
+            this.appWindow.style.width = this.appSize.width
+            this.appWindow.style.top = this.appSize.top
+            this.appWindow.style.left = this.appSize.left
+        }
+        else {
+            this.appSize = {
+                heigth: this.appWindow.style.height,
+                width: this.appWindow.style.width,
+                top: this.appWindow.style.top,
+                left: this.appWindow.style.left
+            }
+            this.appWindow.style.width = "100%"
+            this.appWindow.style.height = "100%"
+            this.appWindow.style.top = "0"
+            this.appWindow.style.left = "0"
+        }
+        this.fullSized = !this.fullSized
     }
 
     setMinimize(){
